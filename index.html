@@ -9,15 +9,19 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="side-bar">
-        <h1 class="brand">Neighbourhood Map</h1>
-        <input type="text" class="filter-input" data-bind="textInput: filterText">
-        <ul class="items-list" data-bind="foreach: locations">
-            <li class="item" data-bind="text: name, click: $root.selectItem"></li>
-        </ul>
-    </div>
 
-    <div id="map">
+    <div id="map"></div>
+
+    <aside>
+        <input type="checkbox" class="hamburger">
+        <span class="brand">Neighbourhood Map</span>
+        <div class="side-bar">
+            <input type="text" class="filter-input" data-bind="textInput: filterText">
+            <ul class="items-list" data-bind="foreach: locations">
+                <li class="item" data-bind="text: name, click: $root.selectItem"></li>
+            </ul>
+        </div>
+    </aside>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/knockout-3.4.2.js"></script>

@@ -121,3 +121,11 @@ function ViewModel () {
 var viewModel = new ViewModel();
 
 ko.applyBindings(viewModel);
+
+$('.hamburger').change(function(){
+    if ($(this).is(':checked')) {
+        $('.side-bar').css('transform', 'translate(0, 0)');
+    } else {
+        $('.side-bar').css('transform', 'translate(-100%, 0)');
+    }
+});
