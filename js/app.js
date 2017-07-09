@@ -39,10 +39,10 @@ var showSideBar = true;
 
 function initMap () {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 38.889496, lng: -77.035317},
-        zoom: 14,
         mapTypeControl: false
     });
+
+    var bounds = new google.maps.LatLngBounds()
 
     for (var i in locations) {
         locations[i].marker = new google.maps.Marker({
@@ -53,7 +53,13 @@ function initMap () {
         locations[i].marker.addListener('click', (function (location) {
             return function () { selectMarker(location); }
         })(locations[i]));
+
+        bounds.extend(locations[i].position);
     };
+
+    var padding = ($(window).width() <= 768) ? 50 : 285;
+
+    map.fitBounds(bounds, padding);
 
     infoWindow = new google.maps.InfoWindow();
 }
