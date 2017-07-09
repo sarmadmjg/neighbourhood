@@ -48,7 +48,6 @@ aside {
     padding: 15px;
     padding-top: 63px;
     background-color: #f9f9f9;
-    transform: translate(-100%, 0);
     transition: transform 0.4s;
 }
 
