@@ -51,7 +51,7 @@ function initMap () {
         });
 
         locations[i].marker.addListener('click', (function (location) {
-            return function () { selectMarker(location); }
+            return function () { viewModel.selectItem(location); }
         })(locations[i]));
 
         bounds.extend(locations[i].position);
@@ -91,6 +91,13 @@ function selectMarker (location) {
             gsrlimit: 1
         },
         success: function (result) {
+            var article = {
+                name: location.name,
+                content: result.query.pages[0].extract
+            }
+
+            viewModel.wikiArticle(article);
+
             var info = '<h3>' + location.name + '</h3>';
             info += '<p>' + result.query.pages[0].extract + '</p>';
             info += '<a href="#">Full article</a>';
@@ -125,13 +132,13 @@ function ViewModel () {
 
     this.filterText.subscribe(this.filter);
 
-    this.selectItem = function () {
+    this.selectItem = function (location) {
         // collapse sidebar in mobile devices
         if ($(window).width() < 768) {
            self.toggleSideBar();
         }
 
-        selectMarker (this);
+        selectMarker (location);
     }
 
     this.toggleSideBar = function () {
@@ -142,7 +149,12 @@ function ViewModel () {
         } else {
             $('.side-bar').css('transform', 'translate(-100%, 0)');
         }
+    }
 
+    this.wikiArticle = ko.observable(null);
+
+    this.dismissWiki = function () {
+        self.wikiArticle(null);
     }
 }
 
