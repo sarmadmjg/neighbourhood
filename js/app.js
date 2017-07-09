@@ -40,7 +40,8 @@ var showSideBar = true;
 function initMap () {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 38.889496, lng: -77.035317},
-        zoom: 14
+        zoom: 14,
+        mapTypeControl: false
     });
 
     for (var i in locations) {
@@ -116,6 +117,11 @@ function ViewModel () {
     this.filterText.subscribe(this.filter);
 
     this.selectItem = function () {
+        // collapse sidebar in mobile devices
+        if ($(window).width() < 768) {
+           self.toggleSideBar();
+        }
+
         selectMarker (this);
     }
 
