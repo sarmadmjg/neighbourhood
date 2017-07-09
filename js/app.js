@@ -82,6 +82,8 @@ function ViewModel () {
         self.locations(filtered);
     }
 
+    this.filterText.subscribe(this.filter);
+
     this.selectItem = function () {
         selectMarker (this.marker);
     }
