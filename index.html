@@ -14,7 +14,7 @@
         <input type="text" class="filter-input" data-bind="textInput: filterText">
         <button class="filter-button" data-bind="click: filter">Filter</button>
         <ul class="items-list" data-bind="foreach: locations">
-            <li class="item" data-bind="text: name"></li>
+            <li class="item" data-bind="text: name, click: $root.selectItem"></li>
         </ul>
     </div>
 

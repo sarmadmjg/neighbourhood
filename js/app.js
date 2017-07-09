@@ -33,6 +33,8 @@ var locations = [
 
 var map;
 
+var infoWindow;
+
 function initMap () {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 38.889496, lng: -77.035317},
@@ -46,9 +48,16 @@ function initMap () {
         });
 
         locations[i].marker.addListener('click', function(){
-            console.log('I was clicked');
+            selectMarker(this);
         });
     };
+
+    infoWindow = new google.maps.InfoWindow();
+}
+
+function selectMarker (marker) {
+    infoWindow.setContent('test');
+    infoWindow.open(map, marker);
 }
 
 function ViewModel () {
@@ -75,6 +84,10 @@ function ViewModel () {
         }
 
         self.locations(filtered);
+    }
+
+    this.selectItem = function () {
+        selectMarker (this.marker);
     }
 }
 
