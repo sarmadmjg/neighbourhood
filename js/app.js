@@ -70,16 +70,12 @@ function ViewModel () {
     this.filter = function () {
         var filtered = [];
 
-        if (self.filterText().trim() == '') {
-            filtered = locations.slice();
-        } else {
-            for (var i in locations) {
-                if ( locations[i].name.toLowerCase().indexOf(self.filterText().trim().toLowerCase()) >= 0) {
-                    locations[i].marker.setMap(map);
-                    filtered.push(locations[i]);
-                } else {
-                    locations[i].marker.setMap(null);
-                }
+        for (var i in locations) {
+            if ( locations[i].name.toLowerCase().indexOf(self.filterText().trim().toLowerCase()) >= 0) {
+                locations[i].marker.setMap(map);
+                filtered.push(locations[i]);
+            } else {
+                locations[i].marker.setMap(null);
             }
         }
 
