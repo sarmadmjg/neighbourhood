@@ -11,7 +11,8 @@
 <body>
     <div class="side-bar">
         <h1 class="brand">Neighbourhood Map</h1>
-        <input type="text" class="filter-input">
+        <input type="text" class="filter-input" data-bind="textInput: filterText">
+        <button class="filter-button" data-bind="click: filter">Filter</button>
         <ul class="items-list" data-bind="foreach: locations">
             <li class="item" data-bind="text: name"></li>
         </ul>

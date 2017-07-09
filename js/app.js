@@ -52,7 +52,24 @@ function initMap () {
 }
 
 function ViewModel () {
+    var self = this;
+
     this.locations = ko.observableArray(locations);
+
+    this.filterText = ko.observable('');
+
+    this.filter = function () {
+        var filtered = [];
+        for (var i in locations) {
+            if ( locations[i].name.toLowerCase().indexOf(self.filterText().toLowerCase()) >= 0) {
+                locations[i].marker.setMap(map);
+                filtered.push(locations[i]);
+            } else {
+                locations[i].marker.setMap(null);
+            }
+        }
+        self.locations(filtered);
+    }
 }
 
 ko.applyBindings(new ViewModel());

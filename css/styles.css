@@ -27,9 +27,17 @@ body {
 }
 
 .side-bar > * {
-    width: 100%;
     min-height: 36px;
     margin: 0 0 15px 0;
+}
+
+.filter-input {
+    width: 75%;
+}
+
+.filter-button {
+    width: 24%;
+    float: right;
 }
 
 #map {
