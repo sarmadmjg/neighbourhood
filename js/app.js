@@ -62,6 +62,9 @@ function selectMarker (location) {
     infoWindow.setContent('Loading wiki article...');
     infoWindow.open(map, location.marker);
 
+    location.marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function () {location.marker.setAnimation(null);}, 750);
+
     $.ajax({
         url: 'https://en.wikipedia.org/w/api.php',
         dataType: 'jsonp',
