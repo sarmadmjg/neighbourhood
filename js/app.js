@@ -60,8 +60,14 @@ function ViewModel () {
 
     this.filter = function () {
         var filtered = [];
+
+        if (self.filterText().trim() == '') {
+            filtered = locations.slice();
+            return;
+        }
+
         for (var i in locations) {
-            if ( locations[i].name.toLowerCase().indexOf(self.filterText().toLowerCase()) >= 0) {
+            if ( locations[i].name.toLowerCase().indexOf(self.filterText().trim().toLowerCase()) >= 0) {
                 locations[i].marker.setMap(map);
                 filtered.push(locations[i]);
             } else {
