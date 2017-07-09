@@ -38,10 +38,21 @@ function initMap () {
         center: {lat: 38.889496, lng: -77.035317},
         zoom: 14
     });
+
+    for (var i in locations) {
+        locations[i].marker = new google.maps.Marker({
+            position: locations[i].position,
+            map: map
+        });
+
+        locations[i].marker.addListener('click', function(){
+            console.log('I was clicked');
+        });
+    };
 }
 
-// function ViewModel () {
+function ViewModel () {
+    this.locations = ko.observableArray(locations);
+}
 
-// };
-
-// ko.applyBindings(new ViewModel());
+ko.applyBindings(new ViewModel());
