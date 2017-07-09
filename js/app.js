@@ -47,17 +47,46 @@ function initMap () {
             map: map
         });
 
-        locations[i].marker.addListener('click', function(){
-            selectMarker(this);
-        });
+        locations[i].marker.addListener('click', (function (location) {
+            return function () { selectMarker(location); }
+        })(locations[i]));
     };
 
     infoWindow = new google.maps.InfoWindow();
 }
 
-function selectMarker (marker) {
-    infoWindow.setContent('test');
-    infoWindow.open(map, marker);
+function selectMarker (location) {
+    infoWindow.setContent('Loading wiki article...');
+    infoWindow.open(map, location.marker);
+
+    $.ajax({
+        url: 'https://en.wikipedia.org/w/api.php',
+        dataType: 'jsonp',
+        data: {
+            format: 'json',
+            formatversion: 2,
+            action: 'query',
+            // get only the intro of the article
+            prop: 'extracts',
+            exchars: 300,
+            exintro: 1,
+            explaintext: 1,
+            generator: 'search',
+            gsrsearch: location.name,
+            // search for articles only
+            gsrnamespace: 0,
+            // return only one result
+            gsrlimit: 1
+        },
+        success: function (result) {
+            var info = '<h3>' + location.name + '</h3>';
+            info += '<p>' + result.query.pages[0].extract + '</p>';
+            info += '<a href="#">Full article</a>';
+            infoWindow.setContent(info);
+            // calling open will pan the map to fit the new infowindow
+            infoWindow.open(map, location.marker);
+        }
+    })
 }
 
 function ViewModel () {
@@ -85,8 +114,10 @@ function ViewModel () {
     this.filterText.subscribe(this.filter);
 
     this.selectItem = function () {
-        selectMarker (this.marker);
+        selectMarker (this);
     }
 }
 
-ko.applyBindings(new ViewModel());
+var viewModel = new ViewModel();
+
+ko.applyBindings(viewModel);
