@@ -1,7 +1,7 @@
 * {
     box-sizing: border-box;
     /*outline: 1px dotted blue;*/
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 html,
@@ -38,7 +38,7 @@ header {
     top: 15px;
     left: 50px;
     z-index: 2;
-    font: 25px 'Abril Fatface', cursive;
+    font: 25px "Abril Fatface", cursive;
     text-align: center;
     text-shadow: 1px 1px 5px #fe9;
 }

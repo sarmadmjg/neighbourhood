@@ -139,12 +139,12 @@ function ViewModel () {
     this.filter = function () {
         var filtered = [];
 
-        for (var i in locations) {
+        for (var i=0; i < locations.length; i += 1) {
             if ( locations[i].name.toLowerCase().indexOf(self.filterText().trim().toLowerCase()) >= 0) {
-                locations[i].marker.setMap(map);
+                locations[i].marker.setVisible(true);
                 filtered.push(locations[i]);
             } else {
-                locations[i].marker.setMap(null);
+                locations[i].marker.setVisible(false);
             }
         }
 
