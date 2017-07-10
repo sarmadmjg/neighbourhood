@@ -51,7 +51,7 @@ function initMap () {
         });
 
         locations[i].marker.addListener('click', (function (location) {
-            return function () { viewModel.selectItem(location); }
+            return function () { selectMarker(location); }
         })(locations[i]));
 
         bounds.extend(locations[i].position);
@@ -69,7 +69,7 @@ function selectMarker (location) {
     infoWindow.open(map, location.marker);
 
     location.marker.setAnimation(google.maps.Animation.BOUNCE);
-    setTimeout(function () {location.marker.setAnimation(null);}, 750);
+    setTimeout(function () { location.marker.setAnimation(null); }, 750);
 
     $.ajax({
         url: 'https://en.wikipedia.org/w/api.php',
@@ -98,10 +98,8 @@ function selectMarker (location) {
 
             viewModel.wikiArticle(article);
 
-            var info = '<h3>' + location.name + '</h3>';
-            info += '<p>' + result.query.pages[0].extract + '</p>';
-            info += '<a href="#">Full article</a>';
-            infoWindow.setContent(info);
+            infoWindow.setContent(article.name);
+
             // calling open will pan the map to fit the new infowindow
             infoWindow.open(map, location.marker);
         }

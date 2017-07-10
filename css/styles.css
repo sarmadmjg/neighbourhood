@@ -13,6 +13,11 @@ body {
     overflow: auto;
 }
 
+#map {
+    width: 100%;
+    height: 100%;
+}
+
 aside {
     position: absolute;
     top: 0;
@@ -59,15 +64,6 @@ aside {
     margin: 0 0 15px 0;
 }
 
-#map {
-    width: 100%;
-    height: 100%;
-}
-
-.item {
-    min-height: 36px;
-}
-
 ul {
     list-style: none;
     padding: 0;
@@ -79,7 +75,7 @@ ul {
     margin-top: 5px;
     padding: 15px;
     cursor: pointer;
-    /*text-align: center;*/
+    min-height: 36px;
 }
 
 .item:hover {
@@ -97,13 +93,13 @@ article {
     padding: 15px;
 }
 
+.dismiss-wiki {
+    float: right;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
     article {
         margin-left: 50px;
     }
-}
-
-.dismiss-wiki {
-    float: right;
-    cursor: pointer;
 }
