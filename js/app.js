@@ -104,7 +104,7 @@ function selectMarker (location) {
         success: function (result) {
             infoWindow.setContent('<h3>' + location.name + '</h3>' +
                                   '<p>' + result.query.pages[0].extract + '</p>' +
-                                  '<a href="https://en.wikipedia.org/?curid=' +
+                                  '<a target="_blank" href="https://en.wikipedia.org/?curid=' +
                                   result.query.pages[0].pageid +
                                   '">Read More</a>');
 
@@ -114,9 +114,6 @@ function selectMarker (location) {
         error: function () {
             infoWindow.setContent('<h3>' + location.name + '</h3>' +
                                   '<p>Failed to load article</p>');
-
-            // calling open will pan the map to fit the new infowindow
-            infoWindow.open(map, location.marker);
         }
     })
 }
