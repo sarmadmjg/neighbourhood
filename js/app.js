@@ -65,7 +65,10 @@ function initMap () {
 }
 
 function selectMarker (location) {
-    infoWindow.setContent('Loading wiki article...');
+    map.panTo(location.position);
+
+    infoWindow.setContent('<h3>' + location.name + '</h3>' +
+                          '<p>Loading wiki article...</p>');
     infoWindow.open(map, location.marker);
 
     location.marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -91,14 +94,18 @@ function selectMarker (location) {
             gsrlimit: 1
         },
         success: function (result) {
-            var article = {
-                name: location.name,
-                content: result.query.pages[0].extract
-            }
+            infoWindow.setContent('<h3>' + location.name + '</h3>' +
+                                  '<p>' + result.query.pages[0].extract + '</p>' +
+                                  '<a href="https://en.wikipedia.org/?curid=' +
+                                  result.query.pages[0].pageid +
+                                  '">Read More</a>');
 
-            viewModel.wikiArticle(article);
-
-            infoWindow.setContent(article.name);
+            // calling open will pan the map to fit the new infowindow
+            infoWindow.open(map, location.marker);
+        },
+        error: function () {
+            infoWindow.setContent('<h3>' + location.name + '</h3>' +
+                                  '<p>Failed to load article</p>');
 
             // calling open will pan the map to fit the new infowindow
             infoWindow.open(map, location.marker);
@@ -147,12 +154,6 @@ function ViewModel () {
         } else {
             $('.side-bar').css('transform', 'translate(-100%, 0)');
         }
-    }
-
-    this.wikiArticle = ko.observable(null);
-
-    this.dismissWiki = function () {
-        self.wikiArticle(null);
     }
 }
 

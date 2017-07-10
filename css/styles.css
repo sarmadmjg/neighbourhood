@@ -6,10 +6,10 @@
 
 html,
 body {
-    height: 100%;
     width: 100%;
-    padding: 0;
+    height: 100%;
     margin: 0;
+    padding: 0;
     overflow: auto;
 }
 
@@ -40,8 +40,7 @@ aside {
     top: 15px;
     left: 50px;
     z-index: 2;
-    font-family: 'Abril Fatface', cursive;
-    font-size: 25px;
+    font: 25px 'Abril Fatface', cursive;
     text-align: center;
 }
 
@@ -64,42 +63,20 @@ aside {
     margin: 0 0 15px 0;
 }
 
-ul {
+.items-list {
     list-style: none;
     padding: 0;
 }
 
-.item {
-    border-radius: 5px;
-    background-color: #eee;
+.location-item {
+    min-height: 36px;
     margin-top: 5px;
     padding: 15px;
+    border-radius: 5px;
+    background-color: #eee;
     cursor: pointer;
-    min-height: 36px;
 }
 
-.item:hover {
+.location-item:hover {
     background-color: #fe9;
-}
-
-article {
-    background-color: white;
-    border: thin solid #ddd;
-    border-radius: 3px;
-    position: absolute;
-    right: 50px;
-    bottom: 50px;
-    margin-left: 350px;
-    padding: 15px;
-}
-
-.dismiss-wiki {
-    float: right;
-    cursor: pointer;
-}
-
-@media screen and (max-width: 768px) {
-    article {
-        margin-left: 50px;
-    }
 }
