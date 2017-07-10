@@ -73,6 +73,11 @@ function initMap () {
     infoWindow = new google.maps.InfoWindow();
 }
 
+// Google maps API loading error
+function mapError() {
+    alert('Error while loading the google maps API');
+}
+
 // handle clicks of markers and list items passed from listeners
 function selectMarker (location) {
     map.panTo(location.position);
