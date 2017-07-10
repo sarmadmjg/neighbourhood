@@ -1,5 +1,3 @@
-'use strict';
-
 // define a few static locations
 var locations = [
     {
@@ -43,22 +41,29 @@ function initMap () {
         gestureHandling: 'greedy'
     });
 
-    var bounds = new google.maps.LatLngBounds()
+    var bounds = new google.maps.LatLngBounds();
 
     // Create a merker for each location and extend the bounds
-    for (var i in locations) {
+    for (var i=0; i < locations.length; i += 1) {
         locations[i].marker = new google.maps.Marker({
             position: locations[i].position,
             map: map
         });
 
         // Handle marker clicks
-        locations[i].marker.addListener('click', (function (location) {
-            return function () { selectMarker(location); }
-        })(locations[i]));
+        addMarkerListener(locations[i]);
 
         bounds.extend(locations[i].position);
-    };
+    }
+
+    // It was done this way bc JSHint kept giving warning about
+    // referencing outer variable (selectMarker)
+    // in declared functions inside loops
+    function addMarkerListener(location){
+        location.marker.addListener('click', function() {
+            selectMarker(location);
+        });
+    }
 
     // set padding to accomodate for side bar
     var padding = ($(window).width() <= 768) ? 50 : 285;
@@ -115,7 +120,7 @@ function selectMarker (location) {
             infoWindow.setContent('<h3>' + location.name + '</h3>' +
                                   '<p>Failed to load article</p>');
         }
-    })
+    });
 }
 
 function ViewModel () {
@@ -139,7 +144,7 @@ function ViewModel () {
         }
 
         self.locations(filtered);
-    }
+    };
 
     // call this.filter every time the user changes filter text
     this.filterText.subscribe(this.filter);
@@ -152,7 +157,7 @@ function ViewModel () {
         }
 
         selectMarker (location);
-    }
+    };
 
     // show or collapse sidebar
     this.showSideBar = ko.observable(true);
@@ -166,7 +171,7 @@ function ViewModel () {
         } else {
             $('.side-bar').css('transform', 'translate(-100%, 0)');
         }
-    }
+    };
 }
 
 var viewModel = new ViewModel();
